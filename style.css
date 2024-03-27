@@ -5,11 +5,22 @@
 }
 
 h1{
-    cursor: pointer;
+    text-align: center;
+    padding: 10px 0 50px;
 }
-h1.active{
-    color: red;
+section{
+	max-width: 1080px;
+	margin: 0 auto 80px;
 }
-p{
-    font-size: 20px;
+section h2{
+	border-bottom: 1px dotted black;
+	margin-bottom: 10px;
+}
+section p{
+	margin-bottom: 40px;
+}
+section h3{
+	border-left: 5px solid black;
+	margin-bottom: 10px;
+	padding-left: 10px;
 }

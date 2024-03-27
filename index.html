@@ -3,14 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample</title>
+    <title>Gitメモ</title>
 
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <h1>Sample</h1>
-    <p>サンプルサンプルサンプル</p>
+    <main>
+        <h1>Gitメモ</h1>
 
+        <section>
+            <h2>git init</h2>
+            <p>リポジトリの作成</p>
+        </section>
+
+        <section>
+            <h2>git add</h2>
+            <p>ステージング</p>
+
+            <h3>git add .</h3>
+            <p>リポジトリ内のすべてのファイルをステージング</p>
+
+            <h3>git add ./sample.txt</h3>
+            <p>sample.txtファイルのみステージング</p>
+        </section>
+
+        <section>
+            <h2>git commit</h2>
+            <p>コミット</p>
+
+            <h3>git commit -m "コメント"</h3>
+            <p>コメントの追加</p>
+
+            <h3>git commit --amend -m "コメント"</h3>
+            <p>直前のコミットのコメントの変更</p>
+        </section>
+
+        <section>
+            <h2>git branch</h2>
+            <p>ブランチの作成</p>
+
+            <h3>git branch</h3>
+            <p>ブランチ一覧と現在のブランチの表示</p>
+
+            <h3>git branch develop</h3>
+            <p>developブランチの作成</p>
+        </section>
+
+        <section>
+            <h2>git switch</h2>
+            <p>作業中のブランチの切替</p>
+
+            <h3>git switch develop</h3>
+            <p>作業中のブランチをdevelopに切替</p>
+
+            <h3>git switch -c feature</h3>
+            <p>featureブランチを作成して切替</p>
+        </section>
+
+        <section>
+            <h2>git reset</h2>
+            <p>コミット・ステージングの取り消し</p>
+
+            <h3>git reset</h3>
+            <p>ステージング(git add)の取り消し</p>
+        </section>
+
+        <section>
+            <h2>git checkout</h2>
+            <p>変更内容の取り消し</p>
+        </section>
+    </main>
+    
     <script src="./script.js"></script>
 </body>
 </html>
