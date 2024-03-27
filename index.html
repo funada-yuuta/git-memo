@@ -47,6 +47,9 @@
 
             <h3>git branch develop</h3>
             <p>developブランチの作成</p>
+
+            <h3>git branch -d feature</h3>
+            <p>featureブランチを削除</p>
         </section>
 
         <section>
@@ -66,11 +69,38 @@
 
             <h3>git reset</h3>
             <p>ステージング(git add)の取り消し</p>
+
+            <h3>git reset --hard HEAD^</h3>
+            <p>ひとつ前のコミットへ戻る(現在のステージング、変更、ひとつ前のコミットの内容の取り消し)</p>
+
+            <h3>git reset HEAD^</h3>
+            <p>ひとつ前のコミットへ戻る(変更点はそのまま)</p>
         </section>
 
         <section>
             <h2>git checkout</h2>
             <p>変更内容の取り消し</p>
+        </section>
+
+        <section>
+            <h2>git merge</h2>
+            <p>マージ</p>
+
+            <h3>git merge develop</h3>
+            <p>現在のブランチにdevelopをマージ</p>
+        </section>
+
+        <section>
+            <h2>git diff</h2>
+            <p>ステージングからの変更点を表示</p>
+        </section>
+
+        <section>
+            <h2>git log</h2>
+            <p>コミットのログを表示</p>
+
+            <h3>git log --oneline</h3>
+            <p>ログを1行で表示</p>
         </section>
     </main>
     
