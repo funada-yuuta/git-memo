@@ -3,24 +3,76 @@
     margin: 0;
     padding: 0;
 }
+a{
+	display: block;
+	text-decoration: none;
+}
+ul{
+	list-style-type: none;
+}
 
 h1{
     text-align: center;
     padding: 10px 0 50px;
 }
-section{
+.container{
 	max-width: 1080px;
-	margin: 0 auto 80px;
+	margin: 0 auto;
 }
-section h2{
+.button-tab{
+	margin-bottom: 50px;
+}
+.button-tab ul{
+	align-items: flex-end;
+	border-bottom: 2px solid black;
+	display: flex;
+}
+.button-tab a{
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border: 2px solid black;
+	border-bottom: none;
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 6px;
+	text-align: center;
+}
+.button-tab li.active a{
+	background-color: black;
+	color: white;
+	padding: 3px 6px;
+}
+
+section{
+	display: none;
+}
+section.active{
+	display: block;
+}
+section .content{
+	margin-bottom: 80px;
+}
+section .content h2{
 	border-bottom: 1px dotted black;
 	margin-bottom: 10px;
 }
-section p{
+section .content p{
 	margin-bottom: 40px;
 }
-section h3{
+section .content p.code{
+	background-color: #1d2020;
+	border-radius: 5px;
+	color: white;
+	padding: 10px;
+}
+section .content h3{
 	border-left: 5px solid black;
 	margin-bottom: 10px;
 	padding-left: 10px;
+}
+section .content ul{
+	list-style-type: disc;
+	list-style-position: inside;
+	margin-bottom: 40px;
 }

@@ -9,126 +9,227 @@
 </head>
 <body>
     <main>
-        <h1>Gitメモ</h1>
+        <div class="container">
+            <h1>Gitメモ</h1>
 
-        <section>
-            <h2>git init</h2>
-            <p>リポジトリの作成</p>
-        </section>
+            <div class="button-tab">
+                <ul>
+                    <li class="active"><a href="#command">コマンド</a></li>
+                    <li><a href="#ssh">SSH接続</a></li>
+                    <li><a href="#pull_request">プルリクエスト</a></li>
+                </ul>
+            </div>
 
-        <section>
-            <h2>git add</h2>
-            <p>ステージング</p>
+            <section id="command" class="aactive">
+                <div class="content">
+                    <h2>git init</h2>
+                    <p>リポジトリの作成</p>
+                </div>
 
-            <h3>git add .</h3>
-            <p>リポジトリ内のすべてのファイルをステージング</p>
+                <div class="content">
+                    <h2>git add</h2>
+                    <p>ステージング</p>
 
-            <h3>git add ./sample.txt</h3>
-            <p>sample.txtファイルのみステージング</p>
-        </section>
+                    <h3>git add .</h3>
+                    <p>リポジトリ内のすべてのファイルをステージング</p>
 
-        <section>
-            <h2>git commit</h2>
-            <p>コミット</p>
+                    <h3>git add ./sample.txt</h3>
+                    <p>sample.txtファイルのみステージング</p>
+                </div>
 
-            <h3>git commit -m "コメント"</h3>
-            <p>コメントの追加</p>
+                <div class="content">
+                    <h2>git commit</h2>
+                    <p>コミット</p>
 
-            <h3>git commit --amend -m "コメント"</h3>
-            <p>直前のコミットのコメントの変更</p>
-        </section>
+                    <h3>git commit -m "コメント"</h3>
+                    <p>コメントの追加</p>
 
-        <section>
-            <h2>git branch</h2>
-            <p>ブランチの作成</p>
+                    <h3>git commit --amend -m "コメント"</h3>
+                    <p>直前のコミットのコメントの変更</p>
+                </div>
 
-            <h3>git branch</h3>
-            <p>ブランチ一覧と現在のブランチの表示</p>
+                <div class="content">
+                    <h2>git branch</h2>
+                    <p>ブランチの作成</p>
 
-            <h3>git branch develop</h3>
-            <p>developブランチの作成</p>
+                    <h3>git branch</h3>
+                    <p>ブランチ一覧と現在のブランチの表示</p>
 
-            <h3>git branch -d feature</h3>
-            <p>featureブランチを削除</p>
+                    <h3>git branch develop</h3>
+                    <p>developブランチの作成</p>
 
-            <h3>git branch -m (master) main</h3>
-            <p>ブランチ名の変更</p>
-        </section>
+                    <h3>git branch -d feature</h3>
+                    <p>featureブランチを削除</p>
 
-        <section>
-            <h2>git switch</h2>
-            <p>作業中のブランチの切替</p>
+                    <h3>git branch -m (master) main</h3>
+                    <p>ブランチ名の変更</p>
+                </div>
 
-            <h3>git switch develop</h3>
-            <p>作業中のブランチをdevelopに切替</p>
+                <div class="content">
+                    <h2>git switch</h2>
+                    <p>作業中のブランチの切替</p>
 
-            <h3>git switch -c feature</h3>
-            <p>featureブランチを作成して切替</p>
-        </section>
+                    <h3>git switch develop</h3>
+                    <p>作業中のブランチをdevelopに切替</p>
 
-        <section>
-            <h2>git reset</h2>
-            <p>コミット・ステージングの取り消し</p>
+                    <h3>git switch -c feature</h3>
+                    <p>featureブランチを作成して切替</p>
+                </div>
 
-            <h3>git reset</h3>
-            <p>ステージング(git add)の取り消し</p>
+                <div class="content">
+                    <h2>git reset</h2>
+                    <p>コミット・ステージングの取り消し</p>
 
-            <h3>git reset --hard HEAD^</h3>
-            <p>ひとつ前のコミットへ戻る(現在のステージング、変更、ひとつ前のコミットの内容の取り消し)</p>
+                    <h3>git reset</h3>
+                    <p>ステージング(git add)の取り消し</p>
 
-            <h3>git reset HEAD^</h3>
-            <p>ひとつ前のコミットへ戻る(変更点はそのまま)</p>
-        </section>
+                    <h3>git reset --hard HEAD^</h3>
+                    <p>ひとつ前のコミットへ戻る(現在のステージング、変更、ひとつ前のコミットの内容の取り消し)</p>
 
-        <section>
-            <h2>git checkout</h2>
-            <p>変更内容の取り消し</p>
-        </section>
+                    <h3>git reset HEAD^</h3>
+                    <p>ひとつ前のコミットへ戻る(変更点はそのまま)</p>
+                </div>
 
-        <section>
-            <h2>git merge</h2>
-            <p>マージ</p>
+                <div class="content">
+                    <h2>git checkout</h2>
+                    <p>変更内容の取り消し</p>
+                </div>
 
-            <h3>git merge develop</h3>
-            <p>現在のブランチにdevelopをマージ</p>
-        </section>
+                <div class="content">
+                    <h2>git merge</h2>
+                    <p>マージ</p>
 
-        <section>
-            <h2>git diff</h2>
-            <p>ステージングからの変更点を表示</p>
-        </section>
+                    <h3>git merge develop</h3>
+                    <p>現在のブランチにdevelopをマージ</p>
+                </div>
 
-        <section>
-            <h2>git log</h2>
-            <p>コミットのログを表示</p>
+                <div class="content">
+                    <h2>git diff</h2>
+                    <p>ステージングからの変更点を表示</p>
+                </div>
 
-            <h3>git log --oneline</h3>
-            <p>ログを1行で表示</p>
-        </section>
+                <div class="content">
+                    <h2>git log</h2>
+                    <p>コミットのログを表示</p>
 
-        <section>
-            <h2>git remote</h2>
-            <p>リモートリポジトリの設定ん</p>
+                    <h3>git log --oneline</h3>
+                    <p>ログを1行で表示</p>
+                </div>
 
-            <h3>git remote add origin git@github.com:funada-yuuta/git-memo.git</h3>
-            <p>リモートリポジトリの追加</p>
+                <div class="content">
+                    <h2>git remote</h2>
+                    <p>リモートリポジトリの設定ん</p>
 
-            <h3>git remote -v</h3>
-            <p>追加したリモートリポジトリの表示</p>
+                    <h3>git remote add origin git@github.com:user-name/repository-name.git</h3>
+                    <p>リモートリポジトリの追加</p>
 
-            <h3>git remote rm origin</h3>
-            <p>リモートリポジトリの削除</p>
-        </section>
+                    <h3>git remote -v</h3>
+                    <p>追加したリモートリポジトリの表示</p>
 
-        <section>
-            <h2>git push</h2>
-            <p>リモートリポジトリへプッシュ</p>
+                    <h3>git remote rm origin</h3>
+                    <p>リモートリポジトリの削除</p>
+                </div>
 
-            <h3>git push origin main</h3>
-            <p>mainブランチをリモートリポジトリへプッシュ</p>
-        </section>
+                <div class="content">
+                    <h2>git push</h2>
+                    <p>リモートリポジトリへプッシュ</p>
+
+                    <h3>git push origin main</h3>
+                    <p>mainブランチをリモートリポジトリへプッシュ</p>
+                </div>
+
+                <div class="content">
+                    <h2>git pull</h2>
+                    <p>リモートリポジトリからプル</p>
+
+                    <h3>git pull origin main</h3>
+                    <p>mainブランチをリモートリポジトリからプル</p>
+                </div>
+            </section>
+
+            <section id="ssh">
+                <div class="content">
+                    <h2>SSHキーの生成</h2>
+                    <p>自PCのコマンドプロンプトでssh-keygenコマンドを使用して、SSH公開鍵と秘密鍵を生成する</p>
+                    <p class="code">ssh-keygen -t ed25519 -C "user@example.com"</p>
+                </div>
+
+                <div class="content">
+                    <h2>公開鍵のコピー</h2>
+                    <p>C:\Users\user\.ssh内のid_ed25519.pubの内容をコピー</p>
+                </div>
+
+                <div class="content">
+                    <h2>公開鍵をGithubに設定</h2>
+                    <ul>
+                        <li>Githubの右上のアイコンからSettingsをクリック</li>
+                        <li>左メニューのSSH and GPG keysをクリック</li>
+                        <li>New SSH keyをクリック</li>
+                        <li>タイトル、公開鍵の内容を入力してAdd SSH keyをクリック</li>
+                    </ul>
+                </div>
+
+                <div class="content">
+                    <h2>接続確認</h2>
+                    <ul>
+                        <li>自PCのコマンドプロンプトでコマンドを入力し接続確認</li>
+                        <li>ローカルリポジトリ(.gitがあるフォルダ内)で行う</li>
+                        <li>successfullyが出たら成功</li>
+                    </ul>
+                    <p class="code">ssh -T git@github.com</p>
+                </div>
+            </section>
+
+            <section id="pull-request" class="active">
+                <div class="content">
+                    <h2>作業用ブランチの作成</h2>
+                    <p>作業用のブランチを作成し、変更、ステージング、コミットはそこで行う</p>
+                    <p class="code">
+                        git switch -c develop<br>
+                        git add .<br>
+                        git commit -m "message"
+                    </p>
+                </div>
+
+                <div class="content">
+                    <h2>作業用ブランチをリモートリポジトリへプッシュ</h2>
+                    <p class="code">git push origin develop</p>
+                </div>
+
+                <div class="content">
+                    <h2>プルリクエスト発行</h2>
+                    <ul>
+                        <li>Github上でCompare & pull requestボタンをクリック</li>
+                        <li>マージ元、マージ先のブランチを指定(main ← develop)</li>
+                        <li>適宜メッセージを入力</li>
+                        <li>Create pull requestをクリック</li>
+                    </ul>
+                </div>
+
+                <div class="content">
+                    <h2>マージ</h2>
+                    <ul>
+                        <li>適宜コメントを入力</li>
+                        <li>Merge pull requestをクリック</li>
+                        <li>リモートリポジトリ上の作業用ブランチを削除</li>
+                    </ul>
+                </div>
+
+                <div class="content">
+                    <h2>ローカルリポジトリにプル</h2>
+                    <ul>
+                        <li>リモートリポジトリの本番用ブランチをローカルリポジトリの本番用ブランチにプル</li>
+                        <li>ローカルリポジトリの作業用リポジトリを削除</li>
+                    </ul>
+                    <p class="code">
+                        git pull origin main<br>
+                        git branch -d develop
+                    </p>
+                </div>
+            </section>
+        </div>
     </main>
-    
+
     <script src="./script.js"></script>
 </body>
 </html>
