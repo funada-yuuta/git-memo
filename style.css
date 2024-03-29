@@ -14,13 +14,20 @@ ul{
 h1{
 	background-color: black;
 	color: white;
-	margin-bottom: 50px;
+	margin-bottom: 10px;
     padding: 10px 0;
 	text-align: center;
 }
 .container{
 	max-width: 1080px;
 	margin: 0 auto;
+}
+.link-area{
+	margin-bottom: 50px;
+}
+.link-area a{
+	display: inline;
+	text-decoration: underline;
 }
 .button-tab{
 	margin-bottom: 50px;
@@ -61,12 +68,13 @@ section .content h2{
 	margin-bottom: 10px;
 }
 section .content p{
-	margin-bottom: 40px;
+	margin-bottom: 30px;
 }
 section .content p.code{
 	background-color: #1d2020;
 	border-radius: 5px;
 	color: white;
+	margin-bottom: 60px;
 	padding: 10px;
 }
 section .content h3{

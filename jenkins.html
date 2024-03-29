@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jenkinsメモ</title>
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <main>
+        <h1>Jenkinsメモ</h1>
+
+        <div class="container">
+            <div class="link-area">
+                <a href="./index.html">Gitメモ</a>
+            </div>
+
+            <div class="button-tab">
+                <ul>
+                    <li class="active"><a href="#setup">セットアップ</a></li>
+                    <li><a href="#disk">ディスク容量</a></li>
+                    <li><a href="#github">Github連携</a></li>
+                </ul>
+            </div>
+
+            <section id="setup" class="active">
+                <div class="content">
+                    <h2>Javaのインストール</h2>
+                    <p>javaのバージョンのうち、11、17、21のいずれかをインストール</p>
+                    <p class="code">
+                        (RedHat)<br>
+                        sudo yum install java-21-openjdk-devel<br>
+                        <br>
+                        (Amazon Linux)<br>
+                        sudo yum install java-21-amazon-corretto-devel
+                    </p>
+                </div>
+
+                <div class="content">
+                    <h2>Jenkinsのインストール</h2>
+                    <p>リポジトリの登録とインストールを行う</p>
+                    <p class="code">
+                        (リポジトリ登録)<br>
+                        sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo<br>
+                        sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key<br>
+                        <br>
+                        (インストール)<br>
+                        sudo yum install jenkins
+                    </p>
+                </div>
+
+                <div class="content">
+                    <h2>Jenkinsの起動設定</h2>
+                    <p>systemctlでJenkinsを起動し、自動起動設定を行う</p>
+                    <p class="code">
+                        (起動)<br>
+                        sudo systemctl start jenkins.service<br>
+                        <br>
+                        (自動起動)<br>
+                        sudo systemctl enable jenkins.service
+                    </p>
+                </div>
+
+                <div class="content">
+                    <h2>ブラウザ上の作業</h2>
+                    <p>Jenkinsがインストールされているサーバーの8080ポートにアクセスし、設定を行う</p>
+
+                    <h3>アンロック</h3>
+                    <ul>
+                        <li>パスワードを入力して、Jenkinsをアンロックする</li>
+                        <li>パスワードは下記のコードで入手する</li>
+                    </ul>
+                    <p class="code">sudo cat /var/lib/jenkins/secrets/initialAdminPassword</p>
+
+                    <h3>流れに沿って進める</h3>
+                    <ul>
+                        <li>Install suggested pluginsを選択</li>
+                        <li>フォームを入力してユーザーの作成</li>
+                        <li>URLは変更しない</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="disk">
+                <div class="content">
+                    <h2>Swap領域の確保</h2>
+                    <p>EC2のT2インスタンスは、Swap領域がそもそもないので、手動で確保する</p>
+
+                    <h3>Swap領域の確認</h3>
+                    <p class="code">free -h</p>
+
+                    <h3>Swap領域の確保</h3>
+                    <p class="code">
+                        sudo dd if=/dev/zero of=/swapfile bs=1M count=1024<br>
+                        sudo chmod 600 /swapfile
+                    </p>
+
+                    <h3>Swapの有効化</h3>
+                    <p class="code">
+                        sudo mkswap /swapfile<br>
+                        sudo swapon /swapfile
+                    </p>
+
+                    <h3>確認</h3>
+                    <p>ここまでの手順を正しく実行すれば、Swap領域が確保されている</p>
+                    <p class="code">free -h</p>
+
+                    <h3>起動時のマウント設定</h3>
+                    <p>インスタンス起動時にSwap領域が確保されるよう、/etc/fstabを編集</p>
+                    <p class="code">
+                        (コマンド)<br>
+                        sudo nano /etc/fstab<br>
+                        <br>
+                        (ファイルの一番下に追加)<br>
+                        /swapfile swap swap defaults 0 0
+                    </p>
+
+                    <h3>再起動</h3>
+                    <p>マネージメントコンソールからEC2インスタンスを再起動</p>
+                </div>
+
+                <div class="content">
+                    <h2>テンポラリ容量の確保</h2>
+                    <p>/tmpの容量も足りない場合は、下記の手順で確保する</p>
+
+                    <h3>マウント設定</h3>
+                    <ul>
+                        <li>/etc/fstabを編集して、/tmpのサイズを変更する</li>
+                        <li>ChatGPT曰く、SIZE以外のオプションはデフォルトのもの</li>
+                        <li>サイズ2Gでも、Jenkinsでは容量が少ないと警告が出ていた</li>
+                    </ul>
+
+                    <p class="code">
+                        (コマンド)<br>
+                        sudo nano /etc/fstab<br>
+                        <br>
+                        (ファイルの一番下に追加)<br>
+                        tmpfs /tmp tmpfs defaults,noatime,nosuid,nodev,noexec,mode=1777,size=2G 0 0
+                    </p>
+
+                    <h3>再マウント</h3>
+                    <p class="code">sudo mount -o remount /tmp</p>
+                </div>
+            </section>
+
+            <section id="github">
+                <div class="content">
+                    <h2>ApacheとGitインストール</h2>
+                    <p>Apacheである必要はないが、例として用いる</p>
+
+                    <h3>Apacheのインストール</h3>
+                    <p class="code">
+                        (インストール)<br>
+                        sudo yum install httpd<br>
+                        <br>
+                        (起動設定)<br>
+                        sudo systemctl start httpd<br>
+                        sudo systemctl enable httpd<br>
+                    </p>
+
+                    <h3>Gitのインストール</h3>
+                    <p class="code">sudo yum install git</p>
+
+                    <h3>リモートリポジトリからクローン</h3>
+                    <p>apacheの公開用ディレクトリにリモートリポジトリをクローン</p>
+                    <p class="code">
+                        cd /var/www/html<br>
+                        sudo git clone https://github.com/{GithubUserName}/{GithubRepositoryName}.git .
+                    </p>
+                </div>
+
+                <div class="content">
+                    <h2>Jenkins Pluginの追加</h2>
+                    <p>JenkinsにGithub Pipeline for Blue Oceanを追加する</p>
+                    
+                    <ul>
+                        <li>Jenkins上でダッシュボードのJenkinsの管理をクリック</li>
+                        <li>System COnfigurationのPluginsをクリック</li>
+                        <li>Available Pluginsをクリック</li>
+                        <li>検索欄にGithubと入力し、Github Pipeline for Blue Oceanをインストール</li>
+                    </ul>
+                </div>
+
+                <div class="content">
+                    <h2>Github Tokenの発行</h2>
+                    <ul>
+                        <li>Github上で右上のプロフィールアイコンからSettingsをクリック</li>
+                        <li>左メニューのDeveloper Settingsをクリック</li>
+                        <li>Personal access tokenのTokens(classic)をクリック</li>
+                        <li>Generate new tokenをクリック</li>
+                        <li>Token名を入力し、repoにチェックを入れてGenerate tokenをクリック</li>
+                    </ul>
+                </div>
+
+                <div class="content">
+                    <h2>ジョブの作成</h2>
+                    <ul>
+                        <li>Jenkins上のダッシュボードから新規ジョブ作成をクリック</li>
+                        <li>ジョブ名を入力し、フリースタイル・プロジェクトのビルドをクリック</li>
+                        <li>ソースコード管理のGitにチェック</li>
+                        <li>リポジトリURLは下記を入力</li>
+                    </ul>
+                    
+                    <p class="code">https://{GithubAccessToken}@github.com/{GithubUserName}/{GithubRepositoryName}/</p>
+
+                    <ul>
+                        <li>ビルド・トリガのGitHub hook trigger for GITScm pollingにチェック</li>
+                        <li>Build stepsのシェルの実行をクリックし、下記を入力</li>
+                    </ul>
+
+                    <p class="code">
+                        #!/bin/bash<br>
+                        <br>
+                        # ディレクトリに移動<br>
+                        echo "移動先ディレクトリ: /var/www/html"<br>
+                        cd /var/www/html || { echo "ディレクトリの変更に失敗しました。"; exit 1; }<br>
+                        <br>
+                        # git pull を実行<br>
+                        echo "GitHub リポジトリから最新の内容を取得します。"<br>
+                        sudo git pull https://{GithubAccessToken}@github.com/{GithubUserName}/{GithubRepositoryName}/ || { echo "git pull に失敗しました。"; exit 1; }<br>
+                        <br>
+                        # Apache2 サーバーを再起動<br>
+                        echo "Apache2 サーバーを再起動します。"<br>
+                        sudo systemctl restart httpd.service || { echo "Apache2 の再起動に失敗しました。"; exit 1; }<br>
+                        <br>
+                        echo "処理が正常に完了しました。"
+                    </p>
+
+                    <p>すべて正しく入力したら保存をクリック</p>
+                </div>
+
+                <div class="content">
+                    <h2>Webhookの設定</h2>
+                    <p>Webhookを使うとWebアプリの更新状況などをほかのWebアプリに通知できる</p>
+
+                    <ul>
+                        <li>Github上のリポジトリのSettingsをクリック</li>
+                        <li>左メニューのWebhooksをクリック</li>
+                        <li>Add Webhookをクリック</li>
+                        <li>Payload URLに下記を入力</li>
+                    </ul>
+
+                    <p class="code">http://{JenkinsHostUrl}:8080/github-webhook/</p>
+
+                    <p>Add Webhookをクリック</p>
+                </div>
+
+                <div class="content">
+                    <h2>確認</h2>
+                    <p>正しく設定できているか、Githubにpushして確認する</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="./script.js"></script>
+</body>
+</html>
